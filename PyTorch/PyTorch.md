@@ -133,6 +133,14 @@ The shape of a tensor is determined by the length of each axis, so if we know th
 t.shape
 ```
 
+**Note**
+
+If t.shape is (3,4,5), then
+
+* The first axis has 2x2 matrices
+* The second axis has Vectors
+* The third axis has actual numbers
+
 
 #### Tensor Reshape
 
@@ -161,17 +169,33 @@ W : Width of the Image
 **Creating Tensors**
 
 ```Python
-t = torch.Tensor() # Creating a Tensor with no data
+t = torch.Tensor() # Class constrcutor
 
 data = np.array([1,2,3]) # Numpy array
 
 t = torch.Tensor(data) # Creating a Tensor from Numpy array
+# By default the output of this method will be `torch.float32` 
+# torch.get_default_dtype() gives the same
 
-t = torch.tensor(data) # Factory Menthod
+t = torch.tensor(data) # Factory Method - 1
 
-t = torch.as_tensor(data)
+t = torch.as_tensor(data) # Factory Method - 2
 
-t = torch.from_numpy(data)
+t = torch.from_numpy(data) # Factory Method - 3
+# Factory Methods infer the data from the input
+
+t = torch.tesnor(data, dtype=torch.float64) # Specifying the data type
+# Works for all the factory Methods
+
+
+# The actual Difference is
+# These two are copy Data
+torch.Tensor(data)
+torch.tensor(data)
+
+# These two are share Data
+torch.to_tensor(data)
+torch.from_numpy(data)
 ```
 
 **Creating Special tensors**
@@ -200,3 +224,66 @@ t.layout # How the data is stored in memory
 
 * Tensors contains data of a uniform type
 * Tensor operations are performed between tensors that are of same dtype and are on the same device
+
+### Tensors Reshaping Operations
+
+**Types of tensor Operations** :
+
+1. Reshaping
+2. Element-wise operations
+3. Reduction operations
+4. Access operations
+
+```Python
+t.numel() # Number of elements in the tensor
+
+t.reshape(m,n) # Reshpae the tensor
+
+t.squueze() # remove all the singleton dimentions
+
+t.unsquueze(dim=0) # Add a singleton dimention
+
+torch.stack((t1,t2,t3), dim=0) # stack the tensors along a given direction
+
+t.flatten(start_dim=1, end_dim=2) # Flatten the tensor from start to end dim
+
+# If t1 & t2 are of the same shape
+t1 + t2
+
+t1 * t2 
+
+t1 - t2
+
+t1 < t2
+
+t.abs()
+
+t.exp()
+
+t.sum()
+
+t.sum(dim = 2)
+
+t.argmax()  # If axis is not specified, it will return argmax from the flattened tensor
+```
+
+**Note**
+
+* t.reshape(1,-1), `-1` indicates pytorch to calulcate the length of that axis automatically 
+
+* When `dim` is invlolved in the operation, the way to think about it is to consider the elements that resise in that axis and the operations are done on these
+
+eg: If t.shape is `(2,3,4)` and the operation is `t.sum(dim = 1)`
+
+Then the 1st axis contains vectors, so the sum is performed on the vectors
+
+
+**Broadcasting Rules**
+
+When operating on two arrays, NumPy compares their shapes element-wise. It starts with the trailing (i.e. rightmost) dimensions and works its way left. Two dimensions are compatible when
+
+  * they are equal, or
+
+  * one of them is 1
+
+* Brodcasting can reduce the code a lot when used intellegently
