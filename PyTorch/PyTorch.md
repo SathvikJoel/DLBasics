@@ -286,4 +286,7 @@ When operating on two arrays, NumPy compares their shapes element-wise. It start
 
   * one of them is 1
 
-* Brodcasting can reduce the code a lot when used intellegently
+Brodcasting can reduce the code a lot when used intellegently
+
+
+
