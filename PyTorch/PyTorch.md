@@ -289,4 +289,13 @@ When operating on two arrays, NumPy compares their shapes element-wise. It start
 Brodcasting can reduce the code a lot when used intellegently
 
 
+### Stack vs Concat
 
+Concatenating joins a sequence of tensors along an existing axis, and Stacking joins a sequqence off tensors along a new axis
+
+Stacking could be thought of as a two step process of first expanding that dimention in all the tensors and then concatinating along that dimention.
+
+
+### TensorBoard 
+
+Pytorch has created a utility called SummaryWriter to help us visualize our training process
