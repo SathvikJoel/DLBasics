@@ -299,3 +299,9 @@ Stacking could be thought of as a two step process of first expanding that dimen
 ### TensorBoard 
 
 Pytorch has created a utility called SummaryWriter to help us visualize our training process
+
+### Creating a Custom Dataset in Pytorch
+
+[A detailed example of how to generate your data in parallel with PyTorch](https://stanford.edu/~shervine/blog/pytorch-how-to-generate-data-parallel)
+
+[Pytorch Documentation](https://pytorch.org/tutorials/beginner/basics/data_tutorial.html)
